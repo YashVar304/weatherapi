@@ -98,24 +98,24 @@ function App() {
               {theme === "light" ? (
                 <FaToggleOff
                   size={30}
-                  className="text-white cursor-pointer"
+                  className="text-white cursor-pointer ml-2"
                   onClick={themeHandler}
                 />
               ) : (
                 <FaToggleOn
                   size={30}
-                  className=" cursor-pointer"
+                  className=" cursor-pointer ml-2"
                   onClick={themeHandler}
                 />
               )}
             </div>
             {/* Display date and time */}
             <div className="w-full h-full mt-5">
-              <div className="flex justify-between px-5 items-center">
-                <h1 className="text-white dark:text-gray-700">
+              <div className="flex  justify-between px-5 items-center">
+                <p className="text-white text-md md:text-lg dark:text-gray-700 font-mono">
                   {Date().slice(0, 15)}
-                </h1>
-                <p className="text-white text-lg dark:text-gray-700">
+                </p>
+                <p className="text-white text-md md:text-lg dark:text-gray-700 font-mono">
                   {time.slice(0, 8)}
                 </p>
               </div>
@@ -211,7 +211,7 @@ function App() {
             {/* Add City section */}
             <div className="bg-black bg-opacity-30 rounded-2xl p-5 ">
               <div className="flex justify-between">
-                <h1 className="text-white text-2xl">Cities</h1>
+                <h1 className="text-white text-2xl mr-2 font-mono">Cities</h1>
                 <div className="flex justify-between items-center">
                   <div className="flex justify-center items-center bg-white px-3 py-1 dark:bg-black dark:bg-opacity-70 rounded-3xl">
                     <CiLocationOn

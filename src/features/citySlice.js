@@ -2,7 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     city: "bahjoi",
-    cityArray: [],
+    cityArray: [
+        "ghaziabad",
+        "delhi",
+        "mumbai",
+        "kolkata",
+    ],
     };
 
 const citySlice = createSlice({
