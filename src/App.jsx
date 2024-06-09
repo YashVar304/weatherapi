@@ -21,6 +21,8 @@ function App() {
   const [searchedCity, setSearchedCity] = useState("");
   const city = useSelector((state) => state.city.city);
   const cities = useSelector((state) => state.city.cityArray);
+  const theme = useSelector((state) => state.theme.theme);
+  const dispatch = useDispatch();
   const [searchAddCity, setSearchAddCity] = useState("");
   const weather = useWeather({ city });
   const date = new Date();
@@ -32,9 +34,18 @@ function App() {
     }, 1000);
     return () => clearInterval(interval);
   }, [date]);
+  useEffect(() => {
+    let cities = JSON.parse(localStorage.getItem("cities"));
+    if (cities && cities.length > 0) {
+      for (let i = 0; i < cities.length; i++) {
+        dispatch(addCity(cities[i]));
+      }
+    }
+  }, []);
+  useEffect(() => {
+    localStorage.setItem("cities", JSON.stringify(cities));
+  }, [cities]);
 
-  const theme = useSelector((state) => state.theme.theme);
-  const dispatch = useDispatch();
   const themeHandler = () => {
     dispatch(toggleTheme());
   };
@@ -191,7 +202,7 @@ function App() {
                     <input
                       type="text"
                       placeholder="Add City"
-                      className="w-full rounded-lg outline-none bg-transparent"
+                      className="w-full rounded-lg outline-none bg-transparent dark:text-gray-400"
                       value={searchAddCity}
                       onChange={(e) => setSearchAddCity(e.target.value)}
                     />
