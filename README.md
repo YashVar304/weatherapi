@@ -26,4 +26,7 @@ To run this project locally, follow these steps:
 
    ```bash
    git clone https://github.com/YashVar304/weatherapi.git
+<<<<<<< HEAD
    ```
+=======
+>>>>>>> 217ca67d613543d34c271144d5bb04fc25cc5645
