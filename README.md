@@ -1,8 +1,28 @@
-# React + Vite
+# Weather Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Weather Dashboard Screenshot](./src/assets/dark.png)
 
-Currently, two official plugins are available:
+This project is a weather dashboard built with React.js. It allows users to search for weather information of different cities and view various weather parameters such as temperature, humidity, wind speed, sunrise, sunset, etc.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+
+- **City Search**: Users can search for weather information of any city.
+- **Current Weather Display**: Display current weather conditions including temperature, weather description, and icon.
+- **Additional Weather Parameters**: View additional weather parameters such as feels like temperature, pressure, visibility, humidity, wind speed, wind degree, sunrise time, and sunset time.
+- **Theme Toggle**: Toggle between light and dark themes.
+- **City Tracking**: Add multiple cities to track their weather information.
+- **Responsive Design**: Seamlessly usable on different devices.
+
+## Screenshots
+
+![Screenshot 1](./src/assets/Screenshot (65).png)
+![Screenshot 2](./src/assets/light.png)
+
+## Installation
+
+To run this project locally, follow these steps:
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/yourusername/weather-dashboard.git
