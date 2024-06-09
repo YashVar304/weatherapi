@@ -25,7 +25,7 @@ function App() {
 
   // Redux state variables
   const city = useSelector((state) => state.city.city);
-  const cities = useSelector((state) => state.city.cityArray);
+  let cities = useSelector((state) => state.city.cityArray);
   const theme = useSelector((state) => state.theme.theme);
   const dispatch = useDispatch();
 
@@ -40,21 +40,6 @@ function App() {
     }, 1000);
     return () => clearInterval(interval);
   }, []);
-
-  // Effect to load cities from localStorage on initial render
-  useEffect(() => {
-    let cities = JSON.parse(localStorage.getItem("cities"));
-    if (cities && cities.length > 0) {
-      for (let i = 0; i < cities.length; i++) {
-        dispatch(addCity(cities[i]));
-      }
-    }
-  }, []);
-
-  // Effect to save cities to localStorage whenever cities state changes
-  useEffect(() => {
-    localStorage.setItem("cities", JSON.stringify(cities));
-  }, [cities]);
 
   // Function to handle theme toggling
   const themeHandler = () => {
@@ -207,9 +192,9 @@ function App() {
           </div>
         </div>
         <div className="w-full md:w-[60%]">
-          <div className="p-5 md:p-10">
+          <div className="p-5 md:p-10 flex flex-col-reverse md:flex-col">
             {/* Add City section */}
-            <div className="bg-black bg-opacity-30 rounded-2xl p-5 ">
+            <div className="bg-black bg-opacity-30 rounded-2xl p-5 mt-2">
               <div className="flex justify-between">
                 <h1 className="text-white text-2xl mr-2 font-mono">Cities</h1>
                 <div className="flex justify-between items-center">
@@ -240,11 +225,13 @@ function App() {
               {/* List of added cities */}
               <div className="scroll-container">
                 {cities &&
-                  cities.map((city) => <AddCityCard key={city} city={city} />)}
+                  cities.map((city, index) => (
+                    <AddCityCard key={index} city={city} />
+                  ))}
               </div>
             </div>
             {/* Additional weather information */}
-            <div className="flex mt-4 flex-wrap gap-3 bg-opacity-30 rounded-2xl">
+            <div className="flex md:mt-4 flex-wrap gap-3 bg-opacity-30 rounded-2xl">
               {/* Wind information */}
               <div className="w-full md:w-[48%] flex bg-opacity-70 bg-black p-5 rounded-2xl ">
                 <div className="flex flex-col justify-between flex-[1] ">
