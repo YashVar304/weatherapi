@@ -1,5 +1,6 @@
+// Importing necessary dependencies and components
 import { useEffect, useState } from "react";
-import BackgroundImage from "./assets/background.png";
+import { useSelector, useDispatch } from "react-redux";
 import { CiLocationOn } from "react-icons/ci";
 import { LiaTemperatureLowSolid } from "react-icons/lia";
 import { IoEyeOutline } from "react-icons/io5";
@@ -12,28 +13,35 @@ import InfoCard from "./components/InfoCard";
 import AddCityCard from "./components/AddCityCard";
 import { FaWind } from "react-icons/fa";
 import { FiSunrise, FiSunset } from "react-icons/fi";
-import { useSelector, useDispatch } from "react-redux";
 import { toggleTheme } from "./features/themeSlice";
 import { addCity, updateCity } from "./features/citySlice";
 import { IoIosAdd } from "react-icons/io";
 
 function App() {
+  // State variables
   const [searchedCity, setSearchedCity] = useState("");
+  const [searchAddCity, setSearchAddCity] = useState("");
+  const [time, setTime] = useState("");
+
+  // Redux state variables
   const city = useSelector((state) => state.city.city);
   const cities = useSelector((state) => state.city.cityArray);
   const theme = useSelector((state) => state.theme.theme);
   const dispatch = useDispatch();
-  const [searchAddCity, setSearchAddCity] = useState("");
+
+  // Custom hook for fetching weather data
   const weather = useWeather({ city });
   const date = new Date();
-  const [time, setTime] = useState(date.toLocaleTimeString());
 
+  // Effect to update time every second
   useEffect(() => {
     const interval = setInterval(() => {
       setTime(new Date().toLocaleTimeString());
     }, 1000);
     return () => clearInterval(interval);
-  }, [date]);
+  }, []);
+
+  // Effect to load cities from localStorage on initial render
   useEffect(() => {
     let cities = JSON.parse(localStorage.getItem("cities"));
     if (cities && cities.length > 0) {
@@ -42,17 +50,24 @@ function App() {
       }
     }
   }, []);
+
+  // Effect to save cities to localStorage whenever cities state changes
   useEffect(() => {
     localStorage.setItem("cities", JSON.stringify(cities));
   }, [cities]);
 
+  // Function to handle theme toggling
   const themeHandler = () => {
     dispatch(toggleTheme());
   };
+
+  // Effect to set theme class on HTML element whenever theme changes
   useEffect(() => {
     document.querySelector("html").classList.remove("dark", "light");
     document.querySelector("html").classList.add(theme);
   }, [theme]);
+
+  // Render JSX
   return (
     <div className="min-h-screen p-3 md:p-10 bg-gradient-to-br to-blue-500 from-white dark:from-gray-300 dark:to-black bg-cover bg-center">
       <div className="flex flex-wrap flex-col-responsive w-full h-full dark:bg-opacity-50 rounded-2xl dark:bg-slate-50 bg-blue-500 bg-opacity-50">
@@ -60,8 +75,8 @@ function App() {
           {weather.loading && (
             <p className="text-white dark:text-black ">Loading...</p>
           )}
-
           <div className="flex flex-col p-5 md:p-10 h-full">
+            {/* Search bar for location */}
             <div className="flex justify-between items-center">
               <div className="flex justify-center items-center bg-white px-3 py-1 dark:bg-black dark:bg-opacity-70 rounded-3xl">
                 <CiLocationOn size={25} className="dark:text-gray-400 mr-2" />
@@ -79,6 +94,7 @@ function App() {
                   <CiSearch className="text-xl dark:text-gray-400" />
                 </button>
               </div>
+              {/* Theme toggle button */}
               {theme === "light" ? (
                 <FaToggleOff
                   size={30}
@@ -93,7 +109,7 @@ function App() {
                 />
               )}
             </div>
-
+            {/* Display date and time */}
             <div className="w-full h-full mt-5">
               <div className="flex justify-between px-5 items-center">
                 <h1 className="text-white dark:text-gray-700">
@@ -103,6 +119,7 @@ function App() {
                   {time.slice(0, 8)}
                 </p>
               </div>
+              {/* Display weather information */}
               {weather.error ? (
                 <div className="flex justify-center items-center h-56">
                   <p className="text-white dark:text-black ">City not found</p>
@@ -144,6 +161,7 @@ function App() {
                   </div>
                 </div>
               )}
+              {/* Display additional weather information */}
               <div className="flex flex-col gap-2">
                 <InfoCard
                   icon={<LiaTemperatureLowSolid className="mr-2" />}
@@ -190,6 +208,7 @@ function App() {
         </div>
         <div className="w-full md:w-[60%]">
           <div className="p-5 md:p-10">
+            {/* Add City section */}
             <div className="bg-black bg-opacity-30 rounded-2xl p-5 ">
               <div className="flex justify-between">
                 <h1 className="text-white text-2xl">Cities</h1>
@@ -218,16 +237,18 @@ function App() {
                   </div>
                 </div>
               </div>
+              {/* List of added cities */}
               <div className="scroll-container">
                 {cities &&
                   cities.map((city) => <AddCityCard key={city} city={city} />)}
               </div>
             </div>
+            {/* Additional weather information */}
             <div className="flex mt-4 flex-wrap gap-3 bg-opacity-30 rounded-2xl">
+              {/* Wind information */}
               <div className="w-full md:w-[48%] flex bg-opacity-70 bg-black p-5 rounded-2xl ">
                 <div className="flex flex-col justify-between flex-[1] ">
                   <h1 className="text-white text-xl mb-5 font-mono">Wind</h1>
-
                   <div className="flex flex-col justify-between">
                     <div className="flex flex-col ">
                       <h1 className="text-white text-lg  font-ubuntu">Speed</h1>
@@ -256,12 +277,12 @@ function App() {
                   <FaWind size={60} className="text-white" />
                 </div>{" "}
               </div>
+              {/* Sunrise & Sunset information */}
               <div className="w-full md:w-[48%]  flex bg-opacity-70 bg-black p-5 rounded-2xl ">
                 <div className="flex flex-col w-full ">
                   <h1 className="text-white text-xl mb-5 font-mono">
                     Sunrise & Sunset
                   </h1>
-
                   <div className="flex flex-col justify-between w-full">
                     <div className="flex justify-between items-center ">
                       <div className="flex flex-col">
@@ -292,7 +313,6 @@ function App() {
                             ).toLocaleTimeString()}
                         </p>
                       </div>
-
                       <FiSunset className=" text-white mr-5" size={40} />
                     </div>
                   </div>
