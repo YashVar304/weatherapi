@@ -239,7 +239,7 @@ function App() {
                   <h1 className="text-white text-lg md:text-xl mb-5 font-mono">
                     Wind
                   </h1>
-                  <div className="flex flex-col justify-between">
+                  <div className="flex flex-col justify-between flex-[1]">
                     <div className="flex flex-col">
                       <h1 className="text-white text-md md:text-lg font-ubuntu">
                         Speed
@@ -267,7 +267,7 @@ function App() {
                     </div>
                   </div>
                 </div>
-                <div className="flex justify-center items-center flex-2">
+                <div className="flex justify-center items-center flex-[2]">
                   <FaWind size={60} className="text-white" />
                 </div>
               </div>
