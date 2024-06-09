@@ -1,31 +1,35 @@
-import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { CiLocationOn, CiSearch } from "react-icons/ci";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux"; // Importing necessary hooks from react-redux
+import { CiLocationOn, CiSearch } from "react-icons/ci"; // Importing icons for UI
 import { LiaTemperatureLowSolid } from "react-icons/lia";
 import { IoEyeOutline } from "react-icons/io5";
 import { LuDroplet } from "react-icons/lu";
-import useWeather from "./customhook/useWeather";
+import useWeather from "./customhook/useWeather"; // Importing a custom hook for fetching weather data
 import { Gauge } from "lucide-react";
 import { FaToggleOff, FaToggleOn, FaWind } from "react-icons/fa";
 import { FiSunrise, FiSunset } from "react-icons/fi";
 import { IoIosAdd } from "react-icons/io";
-import InfoCard from "./components/InfoCard";
+import InfoCard from "./components/InfoCard"; // Importing a component for displaying weather info
 import AddCityCard from "./components/AddCityCard";
-import { toggleTheme } from "./features/themeSlice";
+import { toggleTheme } from "./features/themeSlice"; // Importing Redux action creators
 import { addCity, updateCity } from "./features/citySlice";
 
 function App() {
+  // State variables to manage user input and time
   const [searchedCity, setSearchedCity] = useState("");
   const [searchAddCity, setSearchAddCity] = useState("");
   const [time, setTime] = useState("");
 
+  // Redux state variables
   const city = useSelector((state) => state.city.city);
   const cities = useSelector((state) => state.city.cityArray);
   const theme = useSelector((state) => state.theme.theme);
   const dispatch = useDispatch();
 
+  // Custom hook to fetch weather data
   const weather = useWeather({ city });
 
+  // Effect to update time every second
   useEffect(() => {
     const interval = setInterval(() => {
       setTime(new Date().toLocaleTimeString());
@@ -33,23 +37,28 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
+  // Function to toggle between light and dark themes
   const themeHandler = () => {
     dispatch(toggleTheme());
   };
 
+  // Effect to apply selected theme
   useEffect(() => {
     document.querySelector("html").classList.remove("dark", "light");
     document.querySelector("html").classList.add(theme);
   }, [theme]);
 
   return (
+    // Main container with background styling
     <div className="min-h-screen p-3 md:p-10 bg-gradient-to-br to-blue-500 from-white dark:from-gray-300 dark:to-black bg-cover bg-center">
       <div className="flex flex-wrap w-full h-full dark:bg-opacity-50 rounded-2xl dark:bg-slate-50 bg-blue-500 bg-opacity-50">
+        {/* Left section for weather information */}
         <div className="w-full md:w-2/5">
           {weather.loading && (
             <p className="text-white dark:text-black">Loading...</p>
           )}
           <div className="flex flex-col p-5 md:p-10 h-full">
+            {/* Search bar for finding weather by location */}
             <div className="flex justify-between items-center">
               <div className="flex items-center bg-white px-3 py-1 dark:bg-black dark:bg-opacity-70 rounded-3xl w-full">
                 <CiLocationOn size={25} className="dark:text-gray-400 mr-2" />
@@ -67,6 +76,7 @@ function App() {
                   <CiSearch className="text-xl dark:text-gray-400" />
                 </button>
               </div>
+              {/* Toggle button for theme */}
               {theme === "light" ? (
                 <FaToggleOff
                   size={30}
@@ -81,6 +91,7 @@ function App() {
                 />
               )}
             </div>
+            {/* Display current date and time */}
             <div className="w-full h-full mt-5">
               <div className="flex justify-between px-5 items-center">
                 <p className="text-white text-md md:text-lg dark:text-gray-700 font-mono">
@@ -90,6 +101,7 @@ function App() {
                   {time.slice(0, 8)}
                 </p>
               </div>
+              {/* Display weather information */}
               {weather.error ? (
                 <div className="flex justify-center items-center h-56">
                   <p className="text-white dark:text-black">City not found</p>
@@ -131,6 +143,7 @@ function App() {
                   </div>
                 </div>
               )}
+              {/* Display additional weather info */}
               <div className="flex flex-col gap-2 mt-5">
                 <InfoCard
                   icon={<LiaTemperatureLowSolid className="mr-2" />}
@@ -175,14 +188,17 @@ function App() {
             </div>
           </div>
         </div>
+        {/* Right section for managing cities */}
         <div className="w-full md:w-3/5">
           <div className="p-5 md:p-10 flex flex-col-reverse md:flex-col">
+            {/* Add city card */}
             <div className="bg-black bg-opacity-30 rounded-2xl p-5 mt-2">
-              <div className="flex justify-between">
+              <div className="flex justify-between items-center">
                 <h1 className="text-white text-xl md:text-2xl mr-2 font-mono">
                   Cities
                 </h1>
-                <div className="flex items-center">
+                {/* Search bar for adding a city */}
+                <div className="flex items-center justify-center">
                   <div className="flex items-center bg-white px-3 py-1 dark:bg-black dark:bg-opacity-70 rounded-3xl w-full">
                     <CiLocationOn
                       size={25}
@@ -207,6 +223,7 @@ function App() {
                   </div>
                 </div>
               </div>
+              {/* Display list of cities */}
               <div className="scroll-container max-h-96 overflow-y-auto">
                 {cities &&
                   cities.map((city, index) => (
@@ -214,8 +231,10 @@ function App() {
                   ))}
               </div>
             </div>
+            {/* Additional weather information */}
             <div className="flex flex-wrap gap-3 bg-opacity-30 rounded-2xl mt-4">
-              <div className="w-full md:w-48% flex bg-opacity-70 bg-black p-5 rounded-2xl">
+              {/* Wind information */}
+              <div className="w-full md:w-[48%] flex bg-opacity-70 bg-black p-5 rounded-2xl">
                 <div className="flex flex-col justify-between flex-1">
                   <h1 className="text-white text-lg md:text-xl mb-5 font-mono">
                     Wind
@@ -252,7 +271,7 @@ function App() {
                   <FaWind size={60} className="text-white" />
                 </div>
               </div>
-              <div className="w-full md:w-48% flex bg-opacity-70 bg-black p-5 rounded-2xl">
+              <div className="w-full md:w-[48%] flex bg-opacity-70 bg-black p-5 rounded-2xl">
                 <div className="flex flex-col w-full">
                   <h1 className="text-white text-lg md:text-xl mb-5 font-mono">
                     Sunrise & Sunset
