@@ -15,8 +15,8 @@ This project is a weather dashboard built with React.js. It allows users to sear
 
 ## Screenshots
 
-![Screenshot 1](./src/assets/Screenshot (65).png)
-![Screenshot 2](./src/assets/light.png)
+![Screenshot 1](./src/assets/light1.png)
+![Screenshot 2](./src/assets/withcity.png)
 
 ## Installation
 
