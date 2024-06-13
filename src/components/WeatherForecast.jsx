@@ -96,7 +96,7 @@ const WeatherForecast = ({ forecast }) => {
 
   return (
     <div className="bg-black bg-opacity-70 rounded-2xl p-5">
-      <h2 className="text-white dark:text-gray-700 text-base md:text-lg lg:text-xl font-ubuntu mb-4">
+      <h2 className="dark:text-white text-gray-700 text-base md:text-lg lg:text-xl font-ubuntu mb-4">
         7-Day Weather Forecast
       </h2>
       <div className="relative h-40 md:h-80">
