@@ -54,7 +54,7 @@ function App() {
             {weather.loading && (
               <p className="text-white dark:text-black">Loading...</p>
             )}
-            <div className="flex flex-col p-5 md:p-10 h-full">
+            <div className="flex flex-col py-5 md:py-10 h-full">
               <div className="flex justify-between " style={{}}>
                 <div className="flex items-center bg-white px-3 py-1 dark:bg-black dark:bg-opacity-70 rounded-3xl w-full">
                   <CiLocationOn size={25} className="dark:text-gray-400 mr-2" />
