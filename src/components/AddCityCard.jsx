@@ -23,12 +23,12 @@ function AddCityCard({ city }) {
               className="text-white dark:text-gray-700 flex items-center"
               onClick={() => setCity(city)}
             >
-              <p className="font-mono text-sky-400">
+              <p className="font-mono text-[rgba(75,192,192,1)]">
                 {weather && weather.data && weather.data.name}
               </p>
               <CiLocationOn
                 size={15}
-                className="text-sky-400 dark:text-gray-700 ml-0.5 "
+                className="text-[rgba(75,192,192,1)] dark:text-gray-700 ml-0.5 "
               />
             </button>
             <button
