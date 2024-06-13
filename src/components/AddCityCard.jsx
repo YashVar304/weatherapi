@@ -11,7 +11,7 @@ function AddCityCard({ city }) {
 
   return (
     <div
-      className="flex flex-col items-center min-w-40 bg-opacity-50 bg-blue-300 dark:bg-opacity-50 dark:bg-gray-50 p-3 rounded-lg my-2"
+      className="flex flex-col items-center min-w-40 bg-opacity-30 bg-blue-300 dark:bg-opacity-50 dark:bg-gray-50 p-3 rounded-lg my-2"
       key={city}
     >
       {weather.loading && <p>Loading...</p>}
@@ -23,12 +23,12 @@ function AddCityCard({ city }) {
               className="text-white dark:text-gray-700 flex items-center"
               onClick={() => setCity(city)}
             >
-              <p className="font-mono">
+              <p className="font-mono text-sky-400">
                 {weather && weather.data && weather.data.name}
               </p>
               <CiLocationOn
                 size={15}
-                className="text-white dark:text-gray-700 ml-0.5"
+                className="text-sky-400 dark:text-gray-700 ml-0.5 "
               />
             </button>
             <button
@@ -37,7 +37,7 @@ function AddCityCard({ city }) {
                 dispatch(removeCity(city));
               }}
             >
-              <AiFillDelete size={20} className="ml-2" />
+              <AiFillDelete size={20} className="ml-2 text-red-500" />
             </button>
           </div>
           <div className="flex items-center flex-col">
@@ -49,7 +49,7 @@ function AddCityCard({ city }) {
                 weather.data.weather[0].icon
               }@2x.png`}
               alt="weather"
-              className="w-20 h-20"
+              className="w-20 h-20 "
             />
             <h1 className="text-white dark:text-gray-700 font-ubuntu">
               {weather &&
